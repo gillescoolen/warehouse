@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "files.exclude": {
+      "extensions.json": true,
+      "**/.DS_Store": true,
+      "node_modules": true,
+      "webpack.*": true,
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "dist": true,
+      ".*": true
+    }
+  }
+}
