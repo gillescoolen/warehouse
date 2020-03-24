@@ -15,6 +15,6 @@ export default class GridController {
   }
 
   loadTiles(tiles) {
-    tiles.forEach(index => new TileController(new Tile(), new TileView()));
+    tiles.forEach(tile => new TileController(tile, new TileView()));
   }
 }

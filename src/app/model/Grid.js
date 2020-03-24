@@ -1,12 +1,10 @@
-import Tile from './Tile';
-import { TileController } from '../controller';
-import { TileView } from '../view';
-
 /**
  * A tile which can be occupied by a product or hazard.
  * @typedef {Object} Grid
  * @property {Tile[]} tiles Every tile inside of the section.;
  */
+
+import { Tile } from '.';
 
 export default class Grid {
   #tiles = [];
@@ -14,7 +12,7 @@ export default class Grid {
   constructor() {
     // Mock grid data for now.
     for (let i = 0; i < 225; i++) {
-      this.addTile(i);
+      this.addTile(new Tile(`tile-${i}`, null));
     }
   }
 

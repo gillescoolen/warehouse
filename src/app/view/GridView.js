@@ -11,8 +11,8 @@ export default class GridView extends View {
   }
 
   render(tiles) {
-    tiles.forEach(index => {
-      this.#grid.append(this.createElement('div', `tile-${index}`, ['tile']));
+    tiles.forEach(tile => {
+      this.#grid.append(this.createElement('div', tile.name, ['tile']));
     });
   }
 }
