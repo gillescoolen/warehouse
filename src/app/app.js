@@ -1,6 +1,6 @@
-import { ProductDropdown } from "./view";
-import "./assets/scss/app.scss";
+import './assets/scss/app.scss';
+import { GridView } from './view';
+import { GridController } from './controller';
+import { Grid } from './model';
 
-const productDropdown = new ProductDropdown();
-
-console.log(productDropdown.getDropdown());
+const grid = new GridController(new Grid(), new GridView());

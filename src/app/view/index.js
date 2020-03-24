@@ -1,5 +1,5 @@
-import ProductDropdown from "./ProductDropdown";
+import GridView from './GridView';
+import TileView from './TileView';
+import View from './View';
 
-export {
-  ProductDropdown
-}
+export { GridView, TileView, View };
