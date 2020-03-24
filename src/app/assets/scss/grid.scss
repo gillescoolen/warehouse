@@ -1,0 +1,22 @@
+$gap: 6px;
+$size: 48px;
+$size-with-gap: $size + $gap;
+
+.grid {
+  padding: 1rem;
+  grid-area: grid;
+
+  display: grid;
+  grid-gap: 6px;
+  align-items: center;
+  justify-items: center;
+  grid-template-rows: repeat(15, $size-with-gap);
+  grid-template-columns: repeat(15, $size-with-gap);
+
+  .tile {
+    width: $size;
+    height: $size;
+    border-radius: 5px;
+    background-color: #367beb;
+  }
+}

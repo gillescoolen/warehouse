@@ -12,13 +12,11 @@
       "extensions.json": true,
       "**/.DS_Store": true,
       "node_modules": true,
-      "webpack.*": true,
       "**/.git": true,
       "**/.svn": true,
       "**/.hg": true,
       "**/CVS": true,
       "dist": true,
-      ".*": true
     }
   }
 }
