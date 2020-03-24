@@ -4,13 +4,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   // Set the entry point for webpack. This will eventually get transpiled into bundle.js
-  entry: [
-    './src/app/app.js',
-  ],
+  entry: ['./src/app/app.js'],
   // Set the output location for webpack. Every js file will get transpiled in this file.
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  devServer: {
+    port: 8080,
+    historyApiFallback: {
+      index: '/'
+    }
   },
   // Plugins to help us bundle our app.
   plugins: [
@@ -28,13 +32,11 @@ module.exports = {
       filename: 'style.css'
     }),
     // Automatically prefixes css with browser-specific prefixes.
-    require('autoprefixer'),
+    require('autoprefixer')
   ],
   // Auto-resolves imports with the following extensions. This means we don't have to write .js every time we import.
   resolve: {
-    extensions: [
-      '.js'
-    ]
+    extensions: ['.js']
   },
   module: {
     rules: [
@@ -42,23 +44,12 @@ module.exports = {
       {
         test: [/.js$/],
         exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-env'
-            ]
-          }
-        }
+        use: ['babel-loader', 'eslint-loader']
       },
       // Use the loaders to bundle .scss with webpack.
       {
         test: [/.scss$/],
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader'
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       // User a file loader to add files to the bundle.
       {

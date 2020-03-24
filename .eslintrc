@@ -6,6 +6,7 @@
     "prettier"
   ],
   "rules": {
-    "prettier/prettier": "warning"
-  }
+    "prettier/prettier": "warn"
+  },
+  "parser": "babel-eslint"
 }
