@@ -31,4 +31,14 @@ export default class View {
 
     return element;
   }
+
+  /**
+   * Retrieve multiple elements from the DOM.
+   * @param {string} selector The selector we define.
+   */
+  getMultipleElements(selector) {
+    const element = document.querySelectorAll(selector);
+
+    return element;
+  }
 }

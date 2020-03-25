@@ -29,4 +29,6 @@ export default class Tile {
   set occupant(occupant) {
     this.#occupant = occupant;
   }
+
+  hasHazard = () => this.#occupant && this.#occupant.name === 'hazard';
 }

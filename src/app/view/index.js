@@ -1,5 +1,5 @@
-import GridView from './GridView';
+import RegionView from './RegionView';
 import TileView from './TileView';
 import View from './View';
 
-export { GridView, TileView, View };
+export { RegionView, TileView, View };

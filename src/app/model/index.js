@@ -1,4 +1,4 @@
-import Grid from './Grid';
+import Region from './Region';
 import Tile from './Tile';
 
-export { Tile, Grid };
+export { Region, Tile };

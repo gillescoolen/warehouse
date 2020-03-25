@@ -1,4 +1,4 @@
-import GridController from './GridController';
+import RegionController from './RegionController';
 import TileController from './TileController';
 
-export { GridController, TileController };
+export { RegionController, TileController };
