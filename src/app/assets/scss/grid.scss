@@ -1,5 +1,5 @@
-$gap: 6px;
-$size: 48px;
+$gap: 1px;
+$size: 61px;
 $size-with-gap: $size + $gap;
 
 .grid {
@@ -7,7 +7,7 @@ $size-with-gap: $size + $gap;
   grid-area: grid;
 
   display: grid;
-  grid-gap: 6px;
+  grid-gap: $gap;
   align-items: center;
   justify-items: center;
   grid-template-rows: repeat(15, $size-with-gap);
@@ -16,7 +16,29 @@ $size-with-gap: $size + $gap;
   .tile {
     width: $size;
     height: $size;
-    border-radius: 5px;
+  }
+
+  .open {
     background-color: #367beb;
+  }
+
+  .hazard {
+    background-color: #eb3636;
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  width: 400px;
+  height: 40px;
+  margin-top: 1rem;
+  background-color: rgb(231, 231, 231);
+
+  div {
+    cursor: pointer;
   }
 }
