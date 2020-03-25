@@ -6,11 +6,11 @@ export default class TileController {
     this.#view = view;
     this.#model = model;
 
-    this.#view.bindAddProduct(this.#model.name, this.addOccupant);
+    this.#view.bindAddProduct(this.addOccupant);
   }
 
   addOccupant(occupant) {
-    console.log(occupant);
+    console.log('pressed addOccupant');
   }
 
   removeOccupant(occupant) {}
