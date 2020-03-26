@@ -24,26 +24,12 @@ $size-with-gap: $size + $gap;
   }
 
   .product {
+    cursor: pointer;
     background-color: #38bb3f;
   }
 
   .hazard {
+    cursor: not-allowed;
     background-color: #eb3636;
-  }
-}
-
-.menu {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-evenly;
-
-  width: 400px;
-  height: 40px;
-  margin-top: 1rem;
-  background-color: rgb(231, 231, 231);
-
-  div {
-    cursor: pointer;
   }
 }

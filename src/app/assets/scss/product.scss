@@ -1,15 +1,55 @@
 .form {
-  .products {
-    padding: 0.5rem;
+  .menu {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    width: 100%;
+    height: 40px;
+    border-radius: 5px 0px;
+    margin-top: 1rem;
+    background-color: whitesmoke;
+
+    div {
+      cursor: pointer;
+    }
   }
 
-  .product {
+  .product-wrapper {
     display: flex;
-    width: 400px;
-    height: 200px;
-    font-weight: 700;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
-    background-color: rgb(224, 224, 224);
+
+    .products {
+      width: 100%;
+      border: none;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 0px 5px;
+      background-color: whitesmoke;
+    }
+
+    .product {
+      width: 200px;
+      cursor: grab;
+      color: white;
+      height: 100px;
+      display: flex;
+      font-weight: 700;
+      border-radius: 5px;
+      align-items: center;
+      justify-content: center;
+      background-color: #367beb;
+      transition: 0.3s all;
+      box-shadow: 0px 2px 2px 0px #0000004d;
+
+      &:hover {
+        transition: 0.1s all;
+        background-color: #38bb3f;
+        box-shadow: 0px 3px 4px 0px #00000077;
+      }
+    }
   }
 }

@@ -3,9 +3,17 @@
   height: 100%;
   grid-area: wizard;
   background-color: whitesmoke;
+  padding-top: 1rem;
+
+  .title {
+    margin: 1rem;
+    color: #3b3b3b;
+    font-weight: 700;
+  }
 
   .warning {
     color: #dd2929;
+    font-weight: 700;
   }
 
   .tab {
