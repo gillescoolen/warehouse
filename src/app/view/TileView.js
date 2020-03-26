@@ -7,12 +7,19 @@ export default class TileView extends View {
     super();
 
     this.#tile = this.getElement(`#${tile}`);
+
+    this.onDragOver();
   }
 
-  bindAddProduct(handler) {
-    // Change event to drag event.
-    this.#tile.addEventListener('click', event => {
+  onDragOver(handler) {
+    this.#tile.addEventListener('dragover', event => event.preventDefault());
+  }
+
+  onDrop(handler) {
+    this.#tile.addEventListener('drop', event => {
       handler(event);
     });
   }
+
+  setOccupied = () => this.addClass(this.#tile, 'occupied');
 }

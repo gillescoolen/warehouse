@@ -1,5 +1,6 @@
 import './assets/scss/app.scss';
-import { RegionView } from './view';
-import { RegionController } from './controller';
+import { RegionView, ProductView } from './view';
+import { RegionController, ProductController } from './controller';
 
 const region = new RegionController(new RegionView());
+const product = new ProductController(new ProductView());

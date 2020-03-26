@@ -41,4 +41,22 @@ export default class View {
 
     return element;
   }
+
+  /**
+   * Adds a class to the given element.
+   * @param {Object} element The element we add te class to.
+   * @param {string} className The class we want to add.
+   */
+  addClass(element, className) {
+    element.classList.add(className);
+  }
+
+  /**
+   * Adds a class to the given element.
+   * @param {Object} element The element we add te class to.
+   * @param {string} className The class we want to add.
+   */
+  removeClass(element, className) {
+    element.classList.remove(className);
+  }
 }

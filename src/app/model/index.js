@@ -1,4 +1,5 @@
+import Product from './Product';
 import Region from './Region';
 import Tile from './Tile';
 
-export { Region, Tile };
+export { Product, Region, Tile };

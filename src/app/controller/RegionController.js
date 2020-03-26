@@ -7,34 +7,41 @@ export default class RegionController {
   #model;
   #regions = [];
 
-  #clothes;
-  #frills;
-  #decoration;
-
   constructor(view) {
     this.#view = view;
-    this.#clothes = new Region('clothes');
-    this.#frills = new Region('frills');
-    this.#decoration = new Region('decoration');
+    this.#regions = [
+      new Region('clothes'),
+      new Region('frills'),
+      new Region('decoration')
+    ];
 
-    this.#regions = [this.#clothes, this.#frills, this.#decoration];
-
-    this.#model = this.#clothes;
+    this.#model = this.#regions[0];
 
     this.#view.renderGrid(this.#model.tiles);
-    this.#view.bindRegionChange(this.changeRegion);
+    this.#view.renderProducts(this.#model.products);
 
-    this.loadTiles();
+    this.#view.bindRegionChange(this._changeRegion);
+    this.#view.bindProductChange(this._changeProduct);
+
+    this._bindTiles();
   }
 
-  changeRegion = name => {
+  _changeRegion = name => {
     this.#model = this.#regions.find(region => region.name === name);
 
-    this.loadTiles();
     this.#view.renderGrid(this.#model.tiles);
+    this.#view.renderProducts(this.#model.products);
+
+    this._bindTiles();
   };
 
-  loadTiles = () =>
+  _changeProduct = name => {
+    const product = this.#model.products.find(product => product.name === name);
+
+    this.#view.renderProduct(product);
+  };
+
+  _bindTiles = () =>
     this.#model.tiles.forEach(
       tile => new TileController(tile, new TileView(tile.name))
     );

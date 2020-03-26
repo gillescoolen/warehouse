@@ -6,12 +6,19 @@ export default class TileController {
     this.#view = view;
     this.#model = model;
 
-    this.#view.bindAddProduct(this.addOccupant);
+    this.#view.onDrop(this.addOccupant);
   }
 
-  addOccupant(occupant) {
-    console.log('pressed addOccupant');
-  }
+  addOccupant = event => {
+    if (this.#model.hasHazard()) return;
 
-  removeOccupant(occupant) {}
+    const product = JSON.parse(event.dataTransfer.getData('product'));
+
+    if (!product.name) return;
+
+    this.#model.occupant = product;
+    this.#view.setOccupied();
+  };
+
+  removeOccupant = () => (this.#model.occupant = null);
 }
