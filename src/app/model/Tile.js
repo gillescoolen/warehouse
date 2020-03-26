@@ -44,14 +44,25 @@ export default class Tile {
     return 'open';
   }
 
-  save = () => {
-    const data = JSON.parse(localStorage.getItem(this.#region));
+  setOccupant = name => {
+    const products = JSON.parse(
+      localStorage.getItem(`${this.#region}-products`)
+    );
+    const product = products.find(product => product.name === name);
 
-    data.tiles.forEach(tile => {
+    this.occupant = product;
+
+    this._save();
+  };
+
+  _save = () => {
+    const tiles = JSON.parse(localStorage.getItem(`${this.#region}-tiles`));
+
+    tiles.forEach(tile => {
       if (tile.name === this.#name) tile.occupant = this.#occupant;
     });
 
-    localStorage.setItem(this.#region, JSON.stringify(data));
+    localStorage.setItem(`${this.#region}-tiles`, JSON.stringify(tiles));
   };
 
   toJSON() {

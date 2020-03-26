@@ -23,11 +23,9 @@ export default class TileController {
 
     if (!product.name) return;
 
-    this.#model.occupant = product;
+    this.#model.setOccupant(product.name);
 
     this.#view.setOccupied();
-
-    this.#model.save();
   };
 
   removeOccupant = () => (this.#model.occupant = null);
