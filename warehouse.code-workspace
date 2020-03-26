@@ -9,13 +9,18 @@
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "files.exclude": {
+      "package-lock.json": true,
       "extensions.json": true,
       "**/.DS_Store": true,
       "node_modules": true,
+      "favicon.ico": true,
+      "*.config.js": true,
       "**/.git": true,
       "**/.svn": true,
       "**/.hg": true,
       "**/CVS": true,
+      ".github": true,
+      ".*": true,
       "dist": true,
     }
   }

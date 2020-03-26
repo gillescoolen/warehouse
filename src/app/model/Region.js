@@ -6,41 +6,47 @@
  * @property {Product[]} products The products belonging to our region.
  */
 
-import { Tile } from '.';
-import { Product } from '.';
+import Model from './Model';
+import { Tile, Product } from '.';
 
-export default class Region {
+export default class Region extends Model {
   #name = '';
   #tiles = [];
   #products = [];
 
   constructor(name) {
+    super();
+
     this.#name = name;
 
-    const stored = JSON.parse(localStorage.getItem(this.#name));
-    stored && stored.tiles.length !== 0
-      ? this._generateTilesFromStored(stored.tiles)
-      : this._generateTiles();
+    const storedTiles = this.load(`${this.#name}-tiles`);
+    const storedProducts = this.load(`${this.#name}-products`);
 
-    stored && stored.products.length !== 0
-      ? this._generateProductsFromStored(stored.products)
-      : this._generateProducts();
+    storedTiles && storedTiles.length !== 0
+      ? this.#generateTilesFromStored(storedTiles)
+      : this.#generateTiles();
 
-    localStorage.setItem(this.#name, JSON.stringify(this));
+    storedProducts && storedProducts.length !== 0
+      ? this.#generateProductsFromStored(storedProducts)
+      : this.#generateProducts();
   }
 
-  _generateTiles = () => {
+  #generateTiles = () => {
     for (let i = 0; i < 225; i++)
-      this._addTile(new Tile(`tile-${i}`, this.name, this._isHazard(i)));
+      this.#addTile(new Tile(`tile-${i}`, this.name, this.#isHazard(i)));
+
+    this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
-  _generateTilesFromStored = tiles => {
+  #generateTilesFromStored = tiles => {
     tiles.forEach(tile => {
-      this._addTile(new Tile(tile.name, this.name, tile.occupant));
+      this.#addTile(new Tile(tile.name, this.name, tile.occupant));
     });
+
+    this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
-  _generateProducts = () => {
+  #generateProducts = () => {
     this.#products = [
       new Product({
         name: `${this.#name} - Product 1`
@@ -49,16 +55,18 @@ export default class Region {
         name: `${this.#name} - Product 2`
       })
     ];
+
+    this.save(`${this.#name}-products`, this.#products);
   };
 
-  _generateProductsFromStored = products => {
-    products.forEach(product => this._addProduct(new Product({ ...product })));
+  #generateProductsFromStored = products => {
+    products.forEach(product => this.#addProduct(new Product({ ...product })));
   };
 
-  _addTile = tile => this.tiles.push(tile);
-  _addProduct = product => this.products.push(product);
+  #addTile = tile => this.tiles.push(tile);
+  #addProduct = product => this.products.push(product);
 
-  _isHazard = index =>
+  #isHazard = index =>
     index % this.#name.length === 0 ? { name: 'hazard' } : null;
 
   set name(name) {

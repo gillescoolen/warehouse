@@ -23,11 +23,40 @@
       <div draggable="true" id="product" class="product"></div>
     </div>
     <div id="wizard" class="wizard">
+      <span class="warning"></span>
+      <div class="tab">
+        <input id="name" placeholder="Naam">
+        <input id="description" placeholder="Beschrijving">
+      </div>
 
-    </div>
-    <div id="weather" class="weather">
+      <div class="tab">
+        <input id="buyPrice" type="number" placeholder="Inkoopprijs zonder BTW">
+        <input id="sellPrice" type="number" placeholder="Verkoopprijs zonder BTW">
+      </div>
 
+      <div class="tab">
+        <input id="minimumStored" type="number" placeholder="Minimumvoorraad">
+        <input id="currentStored" type="number" placeholder="Huidige voorraad">
+      </div>
+
+      <div class="tab">
+        <select id="region">
+          <option hidden disabled selected value> Selecteer een categorie </option>
+          <option value="clothes">Kleren</option>
+          <option value="frills">Tierlantijn</option>
+          <option value="decoration">Decoratie</option>
+        </select>
+      </div>
+
+      <div class="buttons">
+        <button type="button" id="previous">Vorige</button>
+        <button type="button" id="next">Volgende</button>
+      </div>
     </div>
+  </div>
+  <div id="weather" class="weather">
+
+  </div>
   </div>
 </body>
 

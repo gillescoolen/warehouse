@@ -7,7 +7,7 @@ export default class View {
    * @param {string} id The id we want to identify the element by.
    * @param {string[]} classNames The classnames we want the element to have.
    */
-  createElement(tag, id, classNames) {
+  createElement(tag, id, classNames, placeholder) {
     const element = document.createElement(tag);
 
     element.id = id;
@@ -18,6 +18,8 @@ export default class View {
         element.classList.add(className);
       }
     }
+
+    element.placeholder = placeholder && placeholder;
 
     return element;
   }
@@ -59,4 +61,12 @@ export default class View {
   removeClass(element, className) {
     element.classList.remove(className);
   }
+
+  /**
+   * Clears all children inside the given node.
+   * @param {Object} node The element node we clear the children of.
+   */
+  clear = node => {
+    while (node.firstChild) node.removeChild(node.firstChild);
+  };
 }

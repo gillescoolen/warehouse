@@ -16,6 +16,7 @@ $size-with-gap: $size + $gap;
   .tile {
     width: $size;
     height: $size;
+    transition: 0.3s all;
   }
 
   .open {

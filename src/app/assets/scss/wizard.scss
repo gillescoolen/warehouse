@@ -1,0 +1,26 @@
+.wizard {
+  width: 100%;
+  height: 100%;
+  grid-area: wizard;
+  background-color: whitesmoke;
+
+  .warning {
+    color: #dd2929;
+  }
+
+  .tab {
+    display: none;
+    padding: 1rem 3rem;
+    flex-direction: column;
+
+    input {
+      margin: 0.5rem 0;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    padding: 0 3rem;
+    justify-content: space-between;
+  }
+}
