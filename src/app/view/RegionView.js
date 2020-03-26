@@ -15,10 +15,6 @@ export default class RegionView extends View {
     this.#menu = this.getMultipleElements('#menu div');
   }
 
-  clear = node => {
-    while (node.firstChild) node.removeChild(node.firstChild);
-  };
-
   renderGrid = tiles => {
     this.clear(this.#grid);
 

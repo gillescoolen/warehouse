@@ -59,4 +59,12 @@ export default class View {
   removeClass(element, className) {
     element.classList.remove(className);
   }
+
+  /**
+   * Clears all children inside the given node.
+   * @param {Object} node The element node we clear the children of.
+   */
+  clear = node => {
+    while (node.firstChild) node.removeChild(node.firstChild);
+  };
 }
