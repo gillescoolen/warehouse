@@ -17,12 +17,10 @@ export default class Product {
   #name = '';
   #description = '';
   #buyPrice;
-  #buyPriceWithTax;
   #sellPrice;
-  #sellPriceWithTax;
   #minimumStored;
   #currentStored;
-  #customProperties = {};
+  #customProperties;
 
   constructor(properties) {
     Object.assign(this, properties);
@@ -36,14 +34,68 @@ export default class Product {
     this.#name = name;
   }
 
+  get description() {
+    return this.#description;
+  }
+
+  set description(description) {
+    this.#description = description;
+  }
+
+  get buyPrice() {
+    return this.#buyPrice;
+  }
+
+  set buyPrice(buyPrice) {
+    this.#buyPrice = buyPrice;
+  }
+
+  get buyPriceWithTax() {
+    return this.#buyPrice * 1.21;
+  }
+
+  get sellPrice() {
+    return this.#name;
+  }
+
+  set sellPrice(sellPrice) {
+    this.#sellPrice = sellPrice;
+  }
+
+  get sellPriceWithTax() {
+    return this.#sellPrice * 1.21;
+  }
+
+  get minimumStored() {
+    return this.#minimumStored;
+  }
+
+  set minimumStored(minimumStored) {
+    this.#minimumStored = minimumStored;
+  }
+
+  get currentStored() {
+    return this.#currentStored;
+  }
+
+  set currentStored(currentStored) {
+    this.#currentStored = currentStored;
+  }
+
+  get customProperties() {
+    return this.#customProperties;
+  }
+
+  set customProperties(customProperties) {
+    this.#customProperties = customProperties;
+  }
+
   toJSON() {
     return {
       name: this.#name,
       description: this.#description,
       buyPrice: this.#buyPrice,
-      buyPriceWithTax: this.#buyPriceWithTax,
       sellPrice: this.#sellPrice,
-      sellPriceWithTax: this.#sellPriceWithTax,
       minimumStored: this.#minimumStored,
       currentStored: this.#currentStored,
       customProperties: this.#customProperties

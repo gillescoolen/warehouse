@@ -13,6 +13,8 @@ export default class ProductView extends View {
   #shown;
   #region;
   #warning;
+  #selectedRegion;
+
   #regionalInputs;
 
   #frillsInputs;
@@ -73,15 +75,18 @@ export default class ProductView extends View {
   #next = handler => {
     this.#clearError();
 
-    if (!this.#shown) return;
-
     const children = [...this.#shown.children];
 
-    const filled = children.find(
+    const empty = children.find(
       c => c.localName === 'input' && c.value.trim().length === 0
     );
 
-    filled ? this.#showError('Niet alle velden zijn ingevuld.') : handler();
+    if (empty) return this.#showError('Niet alle velden zijn ingevuld.');
+
+    const product =
+      this.#nextButton.innerText === 'Voeg toe' && this.#collectValues();
+
+    handler(product);
   };
 
   #previous = handler => {
@@ -93,15 +98,38 @@ export default class ProductView extends View {
   #clearError = () => (this.#warning.innerText = '');
 
   #showRegionalProperties = region => {
+    this.#selectedRegion = region;
     const tab = this.#tabs[this.#tabs.length - 1];
 
     this.clear(tab);
 
-    const inputs = this.#regionalInputs[region];
+    const inputs = this.#regionalInputs[this.#selectedRegion];
 
     inputs.forEach(input => {
       tab.append(input);
     });
+  };
+
+  #regionalValues = () => {
+    const values = {};
+
+    this.#regionalInputs[this.#selectedRegion].forEach(
+      input => (values[input.id] = input.value)
+    );
+
+    return values;
+  };
+
+  #collectValues = () => {
+    return {
+      name: this.#name.value,
+      description: this.#description.value,
+      buyPrice: this.#buyPrice.value,
+      sellPrice: this.#sellPrice.value,
+      minimumStored: this.#minimumStored.value,
+      currentStored: this.#currentStored.value,
+      customProperties: this.#regionalValues()
+    };
   };
 
   show(tab) {
