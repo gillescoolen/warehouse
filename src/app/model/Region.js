@@ -6,22 +6,21 @@
  * @property {Product[]} products The products belonging to our region.
  */
 
-import { Tile } from '.';
-import { Product } from '.';
+import Model from './Model';
+import { Tile, Product } from '.';
 
-export default class Region {
+export default class Region extends Model {
   #name = '';
   #tiles = [];
   #products = [];
 
   constructor(name) {
+    super();
+
     this.#name = name;
 
-    const storedTiles = JSON.parse(localStorage.getItem(`${this.#name}-tiles`));
-
-    const storedProducts = JSON.parse(
-      localStorage.getItem(`${this.#name}-products`)
-    );
+    const storedTiles = this.load(`${this.#name}-tiles`);
+    const storedProducts = this.load(`${this.#name}-products`);
 
     storedTiles && storedTiles.length !== 0
       ? this._generateTilesFromStored(storedTiles)
@@ -30,12 +29,6 @@ export default class Region {
     storedProducts && storedProducts.length !== 0
       ? this._generateProductsFromStored(storedProducts)
       : this._generateProducts();
-
-    localStorage.setItem(`${this.#name}-tiles`, JSON.stringify(this.#tiles));
-    localStorage.setItem(
-      `${this.#name}-products`,
-      JSON.stringify(this.#products)
-    );
   }
 
   _generateTiles = () => {
@@ -47,6 +40,8 @@ export default class Region {
     tiles.forEach(tile => {
       this._addTile(new Tile(tile.name, this.name, tile.occupant));
     });
+
+    this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
   _generateProducts = () => {
@@ -58,6 +53,8 @@ export default class Region {
         name: `${this.#name} - Product 2`
       })
     ];
+
+    this.save(`${this.#name}-products`, this.#products);
   };
 
   _generateProductsFromStored = products => {
