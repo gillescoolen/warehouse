@@ -11,7 +11,13 @@ export default class ProductView extends View {
 
   #tabs;
   #shown;
+  #region;
   #warning;
+  #regionalInputs;
+
+  #frillsInputs;
+  #clothesInputs;
+  #decorationInputs;
 
   #nextButton;
   #previousButton;
@@ -22,6 +28,8 @@ export default class ProductView extends View {
     this.#form = this.getElement('#form');
 
     this.#loadFormElements();
+
+    this.#bindRegionChange();
 
     this.show(0);
   }
@@ -39,6 +47,27 @@ export default class ProductView extends View {
 
     this.#tabs = this.getMultipleElements('.tab');
     this.#warning = this.getElement('.warning');
+
+    this.#region = this.getElement('#region');
+
+    this.#frillsInputs = [this.createElement('input', 'weight', '', 'Gewicht')];
+
+    this.#clothesInputs = [
+      this.createElement('input', 'color', '', 'Kleur'),
+      this.createElement('input', 'size', '', 'Maat')
+    ];
+
+    this.#decorationInputs = [
+      this.createElement('input', 'size', '', 'Grootte in centimeters'),
+      this.createElement('input', 'color', '', 'Kleur'),
+      this.createElement('input', 'amount', '', 'Hoeveelheid per doos')
+    ];
+
+    this.#regionalInputs = {
+      frills: this.#frillsInputs,
+      clothes: this.#clothesInputs,
+      decoration: this.#decorationInputs
+    };
   };
 
   #next = handler => {
@@ -46,34 +75,40 @@ export default class ProductView extends View {
 
     if (!this.#shown) return;
 
-    [...this.#shown.children].find(
-      input => input.localName === 'input' && input.value.trim().length === 0
-    )
-      ? this.#showError('Niet alle velden zijn ingevuld.')
-      : handler();
+    const children = [...this.#shown.children];
+
+    const filled = children.find(
+      c => c.localName === 'input' && c.value.trim().length === 0
+    );
+
+    filled ? this.#showError('Niet alle velden zijn ingevuld.') : handler();
   };
 
   #previous = handler => {
     handler();
   };
 
-  #clearError = () => (this.#warning.innerText = '');
   #showError = message => (this.#warning.innerText = message);
 
-  bindPagination = (next, previous) => {
-    this.#nextButton.addEventListener('click', event => this.#next(next));
-    this.#previousButton.addEventListener('click', event =>
-      this.#previous(previous)
-    );
+  #clearError = () => (this.#warning.innerText = '');
+
+  #showRegionalProperties = region => {
+    const tab = this.#tabs[this.#tabs.length - 1];
+
+    this.clear(tab);
+
+    const inputs = this.#regionalInputs[region];
+
+    inputs.forEach(input => {
+      tab.append(input);
+    });
   };
 
   show(tab) {
     this.#tabs.forEach(tab => (tab.style.display = 'none'));
 
-    if (tab === this.#tabs.length) {
-      this.#nextButton.innerHTML = 'Voeg toe';
-      return;
-    }
+    this.#nextButton.innerHTML =
+      tab + 1 === this.#tabs.length ? 'Voeg toe' : 'Volgende';
 
     tab === 0
       ? this.#previousButton.setAttribute('disabled', true)
@@ -82,4 +117,16 @@ export default class ProductView extends View {
     this.#shown = this.#tabs[tab];
     this.#shown.style.display = 'flex';
   }
+
+  bindPagination = (next, previous) => {
+    this.#nextButton.addEventListener('click', event => this.#next(next));
+    this.#previousButton.addEventListener('click', event =>
+      this.#previous(previous)
+    );
+  };
+
+  #bindRegionChange = () =>
+    this.#region.addEventListener('change', event =>
+      this.#showRegionalProperties(event.target.value)
+    );
 }
