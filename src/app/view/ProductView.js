@@ -20,7 +20,7 @@ export default class ProductView extends View {
     });
   };
 
-  _setText = text => {
+  #setText = text => {
     this.#product.innerText = text;
   };
 }

@@ -23,28 +23,28 @@ export default class Region extends Model {
     const storedProducts = this.load(`${this.#name}-products`);
 
     storedTiles && storedTiles.length !== 0
-      ? this._generateTilesFromStored(storedTiles)
-      : this._generateTiles();
+      ? this.#generateTilesFromStored(storedTiles)
+      : this.#generateTiles();
 
     storedProducts && storedProducts.length !== 0
-      ? this._generateProductsFromStored(storedProducts)
-      : this._generateProducts();
+      ? this.#generateProductsFromStored(storedProducts)
+      : this.#generateProducts();
   }
 
-  _generateTiles = () => {
+  #generateTiles = () => {
     for (let i = 0; i < 225; i++)
-      this._addTile(new Tile(`tile-${i}`, this.name, this._isHazard(i)));
+      this.#addTile(new Tile(`tile-${i}`, this.name, this.#isHazard(i)));
   };
 
-  _generateTilesFromStored = tiles => {
+  #generateTilesFromStored = tiles => {
     tiles.forEach(tile => {
-      this._addTile(new Tile(tile.name, this.name, tile.occupant));
+      this.#addTile(new Tile(tile.name, this.name, tile.occupant));
     });
 
     this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
-  _generateProducts = () => {
+  #generateProducts = () => {
     this.#products = [
       new Product({
         name: `${this.#name} - Product 1`
@@ -57,14 +57,14 @@ export default class Region extends Model {
     this.save(`${this.#name}-products`, this.#products);
   };
 
-  _generateProductsFromStored = products => {
-    products.forEach(product => this._addProduct(new Product({ ...product })));
+  #generateProductsFromStored = products => {
+    products.forEach(product => this.#addProduct(new Product({ ...product })));
   };
 
-  _addTile = tile => this.tiles.push(tile);
-  _addProduct = product => this.products.push(product);
+  #addTile = tile => this.tiles.push(tile);
+  #addProduct = product => this.products.push(product);
 
-  _isHazard = index =>
+  #isHazard = index =>
     index % this.#name.length === 0 ? { name: 'hazard' } : null;
 
   set name(name) {

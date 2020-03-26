@@ -56,10 +56,10 @@ export default class Tile extends Model {
 
     this.occupant = product;
 
-    this._save();
+    this.#save();
   };
 
-  _save = () => {
+  #save = () => {
     const tiles = this.load(`${this.#region}-tiles`);
 
     tiles.forEach(tile => {

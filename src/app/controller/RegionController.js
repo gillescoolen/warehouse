@@ -20,15 +20,15 @@ export default class RegionController {
     this.#view.renderGrid(this.#model.tiles);
     this.#view.renderProducts(this.#model.products);
 
-    this.#view.bindRegionChange(this._changeRegion);
-    this.#view.bindProductChange(this._changeProduct);
+    this.#view.bindRegionChange(this.#changeRegion);
+    this.#view.bindProductChange(this.#changeProduct);
 
     this.#view.renderProduct(this.#model.products[0]);
 
-    this._bindTiles();
+    this.#bindTiles();
   }
 
-  _changeRegion = name => {
+  #changeRegion = name => {
     this.#model = this.#regions.find(region => region.name === name);
 
     this.#view.renderGrid(this.#model.tiles);
@@ -36,16 +36,16 @@ export default class RegionController {
 
     this.#view.renderProduct(this.#model.products[0]);
 
-    this._bindTiles();
+    this.#bindTiles();
   };
 
-  _changeProduct = name => {
+  #changeProduct = name => {
     const product = this.#model.products.find(product => product.name === name);
 
     this.#view.renderProduct(product);
   };
 
-  _bindTiles = () =>
+  #bindTiles = () =>
     this.#model.tiles.forEach(
       tile => new TileController(tile, new TileView(tile.name))
     );
