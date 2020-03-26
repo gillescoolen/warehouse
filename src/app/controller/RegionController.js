@@ -33,7 +33,6 @@ export default class RegionController {
 
     this.#view.renderGrid(this.#model.tiles);
     this.#view.renderProducts(this.#model.products);
-
     this.#view.renderProduct(this.#model.products[0]);
 
     this.#bindTiles();

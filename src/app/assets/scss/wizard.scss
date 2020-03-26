@@ -8,15 +8,9 @@
     color: #dd2929;
   }
 
-  form {
-    width: 70%;
-    height: 70%;
-    padding: 1rem;
-    margin: 100px auto;
-  }
-
   .tab {
     display: none;
+    padding: 1rem 3rem;
     flex-direction: column;
 
     input {
@@ -26,7 +20,7 @@
 
   .buttons {
     display: flex;
-    flex-direction: colu;
+    padding: 0 3rem;
     justify-content: space-between;
   }
 }

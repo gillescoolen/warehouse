@@ -1,7 +1,6 @@
 import View from './View';
 
 export default class ProductView extends View {
-  #form;
   #name;
   #description;
   #buyPrice;
@@ -26,8 +25,6 @@ export default class ProductView extends View {
 
   constructor() {
     super();
-
-    this.#form = this.getElement('#form');
 
     this.#loadFormElements();
 
@@ -86,7 +83,7 @@ export default class ProductView extends View {
     const product =
       this.#nextButton.innerText === 'Voeg toe' && this.#collectValues();
 
-    handler(product);
+    handler(product, this.#selectedRegion);
   };
 
   #previous = handler => {
@@ -132,7 +129,16 @@ export default class ProductView extends View {
     };
   };
 
-  show(tab) {
+  #clearValues = () => {
+    this.#name.value = '';
+    this.#description.value = '';
+    this.#buyPrice.value = '';
+    this.#sellPrice.value = '';
+    this.#minimumStored.value = '';
+    this.#currentStored.value = '';
+  };
+
+  show = tab => {
     this.#tabs.forEach(tab => (tab.style.display = 'none'));
 
     this.#nextButton.innerHTML =
@@ -144,7 +150,19 @@ export default class ProductView extends View {
 
     this.#shown = this.#tabs[tab];
     this.#shown.style.display = 'flex';
-  }
+  };
+
+  updateProductSelect = product => {
+    var option = this.createElement('option', product.name);
+    option.text = product.name;
+    option.value = product.name;
+    this.getElement('#products').append(option);
+  };
+
+  resetForm = () => {
+    this.show(0);
+    this.#clearValues();
+  };
 
   bindPagination = (next, previous) => {
     this.#nextButton.addEventListener('click', event => this.#next(next));

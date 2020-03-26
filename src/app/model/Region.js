@@ -34,6 +34,8 @@ export default class Region extends Model {
   #generateTiles = () => {
     for (let i = 0; i < 225; i++)
       this.#addTile(new Tile(`tile-${i}`, this.name, this.#isHazard(i)));
+
+    this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
   #generateTilesFromStored = tiles => {

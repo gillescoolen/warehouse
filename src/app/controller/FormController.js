@@ -9,8 +9,15 @@ export default class FormController {
     this.#view.bindPagination(this.#next, this.#previous);
   }
 
-  #next = product => {
-    if (product) return console.log(product);
+  #next = (product, region) => {
+    if (product) {
+      this.#model.addProduct(product, region);
+      this.#view.updateProductSelect(product);
+      this.#view.resetForm();
+      this.#model.page = 0;
+
+      return;
+    }
 
     this.#model.next();
     this.#view.show(this.#model.page);
