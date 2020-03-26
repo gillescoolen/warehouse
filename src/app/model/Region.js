@@ -17,16 +17,25 @@ export default class Region {
   constructor(name) {
     this.#name = name;
 
-    const stored = JSON.parse(localStorage.getItem(this.#name));
-    stored && stored.tiles.length !== 0
-      ? this._generateTilesFromStored(stored.tiles)
+    const storedTiles = JSON.parse(localStorage.getItem(`${this.#name}-tiles`));
+
+    const storedProducts = JSON.parse(
+      localStorage.getItem(`${this.#name}-products`)
+    );
+
+    storedTiles && storedTiles.length !== 0
+      ? this._generateTilesFromStored(storedTiles)
       : this._generateTiles();
 
-    stored && stored.products.length !== 0
-      ? this._generateProductsFromStored(stored.products)
+    storedProducts && storedProducts.length !== 0
+      ? this._generateProductsFromStored(storedProducts)
       : this._generateProducts();
 
-    localStorage.setItem(this.#name, JSON.stringify(this));
+    localStorage.setItem(`${this.#name}-tiles`, JSON.stringify(this.#tiles));
+    localStorage.setItem(
+      `${this.#name}-products`,
+      JSON.stringify(this.#products)
+    );
   }
 
   _generateTiles = () => {
