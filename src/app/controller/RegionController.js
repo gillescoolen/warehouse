@@ -23,6 +23,8 @@ export default class RegionController {
     this.#view.bindRegionChange(this._changeRegion);
     this.#view.bindProductChange(this._changeProduct);
 
+    this.#view.renderProduct(this.#model.products[0]);
+
     this._bindTiles();
   }
 
@@ -31,6 +33,8 @@ export default class RegionController {
 
     this.#view.renderGrid(this.#model.tiles);
     this.#view.renderProducts(this.#model.products);
+
+    this.#view.renderProduct(this.#model.products[0]);
 
     this._bindTiles();
   };

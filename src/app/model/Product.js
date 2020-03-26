@@ -16,7 +16,6 @@
 export default class Product {
   #name = '';
   #description = '';
-  #region;
   #buyPrice;
   #buyPriceWithTax;
   #sellPrice;
@@ -37,11 +36,17 @@ export default class Product {
     this.#name = name;
   }
 
-  set region(region) {
-    this.#region = region;
-  }
-
-  get region() {
-    return this.#region;
+  toJSON() {
+    return {
+      name: this.#name,
+      description: this.#description,
+      buyPrice: this.#buyPrice,
+      buyPriceWithTax: this.#buyPriceWithTax,
+      sellPrice: this.#sellPrice,
+      sellPriceWithTax: this.#sellPriceWithTax,
+      minimumAmountStored: this.#minimumAmountStored,
+      currentAmountStored: this.#currentAmountStored,
+      customProperties: this.#customProperties
+    };
   }
 }

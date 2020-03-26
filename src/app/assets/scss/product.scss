@@ -1,13 +1,15 @@
-.products {
-  padding: 0.5rem;
-}
+.form {
+  .products {
+    padding: 0.5rem;
+  }
 
-.product {
-  display: flex;
-  width: 400px;
-  height: 200px;
-  font-weight: 700;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(224, 224, 224);
+  .product {
+    display: flex;
+    width: 400px;
+    height: 200px;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(224, 224, 224);
+  }
 }

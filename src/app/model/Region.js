@@ -17,24 +17,42 @@ export default class Region {
   constructor(name) {
     this.#name = name;
 
-    this.#products = [
-      new Product({
-        name: `${this.#name} - Product 1`,
-        region: this
-      }),
-      new Product({
-        name: `${this.#name} - Product 2`,
-        region: this
-      })
-    ];
+    const stored = JSON.parse(localStorage.getItem(this.#name));
+    stored && stored.tiles.length !== 0
+      ? this._generateTilesFromStored(stored.tiles)
+      : this._generateTiles();
 
-    this._generateTiles();
+    stored && stored.products.length !== 0
+      ? this._generateProductsFromStored(stored.products)
+      : this._generateProducts();
+
+    localStorage.setItem(this.#name, JSON.stringify(this));
   }
 
   _generateTiles = () => {
-    for (let i = 0; i < 225; i++) {
-      this._addTile(new Tile(`tile-${i}`, this._isHazard(i)));
-    }
+    for (let i = 0; i < 225; i++)
+      this._addTile(new Tile(`tile-${i}`, this.name, this._isHazard(i)));
+  };
+
+  _generateTilesFromStored = tiles => {
+    tiles.forEach(tile => {
+      this._addTile(new Tile(tile.name, this.name, tile.occupant));
+    });
+  };
+
+  _generateProducts = () => {
+    this.#products = [
+      new Product({
+        name: `${this.#name} - Product 1`
+      }),
+      new Product({
+        name: `${this.#name} - Product 2`
+      })
+    ];
+  };
+
+  _generateProductsFromStored = products => {
+    products.forEach(product => this._addProduct(new Product({ ...product })));
   };
 
   _addTile = tile => this.tiles.push(tile);
@@ -65,5 +83,13 @@ export default class Region {
 
   get products() {
     return this.#products;
+  }
+
+  toJSON() {
+    return {
+      name: this.#name,
+      tiles: this.#tiles,
+      products: this.#products
+    };
   }
 }

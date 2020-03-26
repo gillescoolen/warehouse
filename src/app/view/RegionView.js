@@ -24,10 +24,7 @@ export default class RegionView extends View {
 
     tiles.forEach(tile => {
       this.#grid.append(
-        this.createElement('div', tile.name, [
-          'tile',
-          tile.hasHazard() ? 'hazard' : 'open'
-        ])
+        this.createElement('div', tile.name, ['tile', tile.getClassName()])
       );
     });
   };
@@ -45,9 +42,6 @@ export default class RegionView extends View {
   };
 
   renderProduct = product => {
-    console.log(product);
-    console.log(product.region);
-
     this.clear(this.#product);
     this.#product.innerText = product.name;
   };
@@ -59,9 +53,8 @@ export default class RegionView extends View {
   };
 
   bindProductChange = handler => {
-    this.#products.addEventListener('change', event => {
-      console.log(event.target.value);
-      handler(event.target.value);
-    });
+    this.#products.addEventListener('change', event =>
+      handler(event.target.value)
+    );
   };
 }

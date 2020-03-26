@@ -21,5 +21,5 @@ export default class TileView extends View {
     });
   }
 
-  setOccupied = () => this.addClass(this.#tile, 'occupied');
+  setOccupied = () => this.addClass(this.#tile, 'product');
 }
