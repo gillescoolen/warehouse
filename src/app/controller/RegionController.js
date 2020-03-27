@@ -18,7 +18,7 @@ export default class RegionController {
     this.#model = this.#regions[0];
 
     this.#view.renderGrid(this.#model.tiles);
-    this.#view.renderProducts(this.#model.products);
+    this.#view.renderProducts(this.#model.products, this.#model.name);
 
     this.#view.bindRegionChange(this.#changeRegion);
     this.#view.bindProductChange(this.#changeProduct);
@@ -30,9 +30,9 @@ export default class RegionController {
 
   #changeRegion = name => {
     this.#model = this.#regions.find(region => region.name === name);
-
+    this.#model.refreshProducts();
     this.#view.renderGrid(this.#model.tiles);
-    this.#view.renderProducts(this.#model.products);
+    this.#view.renderProducts(this.#model.products, this.#model.name);
     this.#view.renderProduct(this.#model.products[0]);
 
     this.#bindTiles();

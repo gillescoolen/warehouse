@@ -11,7 +11,7 @@ export default class RegionView extends View {
 
     this.#grid = this.getElement('#grid');
     this.#product = this.getElement('#product');
-    this.#products = this.getElement('#products');
+    this.#products = this.getElement('#products-clothes');
     this.#menu = this.getMultipleElements('#menu div');
   }
 
@@ -25,12 +25,14 @@ export default class RegionView extends View {
     });
   };
 
-  renderProducts = products => {
+  renderProducts = (products, name) => {
     this.clear(this.#products);
     this.clear(this.#product);
 
+    this.#products.id = `products-${name}`;
+
     products.forEach(product => {
-      var option = this.createElement('option', product.name);
+      const option = this.createElement('option', product.name);
       option.text = product.name;
       option.value = product.name;
       this.#products.append(option);

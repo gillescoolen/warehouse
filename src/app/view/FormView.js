@@ -49,17 +49,19 @@ export default class ProductView extends View {
 
     this.#region = this.getElement('#region');
 
-    this.#frillsInputs = [this.createElement('input', 'weight', '', 'Gewicht')];
+    this.#frillsInputs = [
+      this.createInput('input', 'weight', 'number', 'Gewicht')
+    ];
 
     this.#clothesInputs = [
-      this.createElement('input', 'color', '', 'Kleur'),
-      this.createElement('input', 'size', '', 'Maat')
+      this.createInput('input', 'color', 'text', 'Kleur'),
+      this.createInput('input', 'size', 'text', 'Maat')
     ];
 
     this.#decorationInputs = [
-      this.createElement('input', 'size', '', 'Grootte in centimeters'),
-      this.createElement('input', 'color', '', 'Kleur'),
-      this.createElement('input', 'amount', '', 'Hoeveelheid per doos')
+      this.createInput('input', 'size', 'number', 'Grootte in centimeters'),
+      this.createInput('input', 'color', 'text', 'Kleur'),
+      this.createInput('input', 'amount', 'number', 'Hoeveelheid per doos')
     ];
 
     this.#regionalInputs = {
@@ -78,7 +80,8 @@ export default class ProductView extends View {
       c => c.localName === 'input' && c.value.trim().length === 0
     );
 
-    if (empty) return this.#showError('Niet alle velden zijn ingevuld.');
+    if (empty)
+      return this.#showError('Niet alle velden zijn correct ingevuld.');
 
     const product =
       this.#nextButton.innerText === 'Voeg toe' && this.#collectValues();
@@ -152,18 +155,29 @@ export default class ProductView extends View {
     this.#shown.style.display = 'flex';
   };
 
-  updateProductSelect = product => {
-    var option = this.createElement('option', product.name);
-    option.text = product.name;
-    option.value = product.name;
-    this.getElement('#products').append(option);
+  updateProductSelect = (product, region) => {
+    const select = this.getElement(`#products-${region}`);
+    if (select) {
+      console.log('It exists');
+      const option = this.createElement('option', product.name);
+      option.text = product.name;
+      option.value = product.name;
+      this.getElement('#products').append(option);
+    } else {
+      console.log('It doesnt exist.');
+    }
   };
 
   resetForm = () => {
     this.show(0);
+    this.#selectedRegion = null;
+    this.#region.selected = 'default';
     this.#clearValues();
   };
 
+  /**
+   * Binds click events to our next and previous buttons.
+   */
   bindPagination = (next, previous) => {
     this.#nextButton.addEventListener('click', event => this.#next(next));
     this.#previousButton.addEventListener('click', event =>
@@ -171,6 +185,9 @@ export default class ProductView extends View {
     );
   };
 
+  /**
+   * Binds a 'change' event listener to our region dropdown.
+   */
   #bindRegionChange = () =>
     this.#region.addEventListener('change', event =>
       this.#showRegionalProperties(event.target.value)
