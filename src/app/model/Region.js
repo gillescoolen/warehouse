@@ -23,11 +23,11 @@ export default class Region extends Model {
     const storedProducts = this.load(`${this.#name}-products`);
 
     storedTiles && storedTiles.length !== 0
-      ? this.#generateTilesFromStored(storedTiles)
+      ? this.#loadTiles(storedTiles)
       : this.#generateTiles();
 
     storedProducts && storedProducts.length !== 0
-      ? this.#generateProductsFromStored(storedProducts)
+      ? this.#loadProducts(storedProducts)
       : this.#generateProducts();
   }
 
@@ -38,12 +38,10 @@ export default class Region extends Model {
     this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
-  #generateTilesFromStored = tiles => {
+  #loadTiles = tiles => {
     tiles.forEach(tile => {
       this.#addTile(new Tile(tile.name, this.name, tile.occupant));
     });
-
-    this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
   #generateProducts = () => {
@@ -59,7 +57,8 @@ export default class Region extends Model {
     this.save(`${this.#name}-products`, this.#products);
   };
 
-  #generateProductsFromStored = products => {
+  #loadProducts = products => {
+    this.#products = [];
     products.forEach(product => this.#addProduct(new Product({ ...product })));
   };
 
@@ -68,6 +67,11 @@ export default class Region extends Model {
 
   #isHazard = index =>
     index % this.#name.length === 0 ? { name: 'hazard' } : null;
+
+  refreshProducts = () => {
+    const products = this.load(`${this.#name}-products`);
+    this.#loadProducts(products);
+  };
 
   set name(name) {
     this.#name = name;

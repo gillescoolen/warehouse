@@ -12,7 +12,7 @@ export default class FormController {
   #next = (product, region) => {
     if (product) {
       this.#model.addProduct(product, region);
-      this.#view.updateProductSelect(product);
+      this.#view.updateProductSelect(product, region);
       this.#view.resetForm();
       this.#model.page = 0;
 
