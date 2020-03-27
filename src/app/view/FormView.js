@@ -103,6 +103,8 @@ export default class ProductView extends View {
 
     this.clear(tab);
 
+    this.#nextButton.removeAttribute('disabled');
+
     const inputs = this.#regionalInputs[this.#selectedRegion];
 
     inputs.forEach(input => {
@@ -144,8 +146,13 @@ export default class ProductView extends View {
   show = tab => {
     this.#tabs.forEach(tab => (tab.style.display = 'none'));
 
-    this.#nextButton.innerHTML =
-      tab + 1 === this.#tabs.length ? 'Voeg toe' : 'Volgende';
+    if (tab + 1 === this.#tabs.length) {
+      this.#nextButton.innerHTML = 'Voeg toe';
+      this.#nextButton.setAttribute('disabled', true);
+    } else {
+      this.#nextButton.innerHTML = 'Volgende';
+      this.#nextButton.removeAttribute('disabled');
+    }
 
     tab === 0
       ? this.#previousButton.setAttribute('disabled', true)
@@ -157,15 +164,13 @@ export default class ProductView extends View {
 
   updateProductSelect = (product, region) => {
     const select = this.getElement(`#products-${region}`);
-    if (select) {
-      console.log('It exists');
-      const option = this.createElement('option', product.name);
-      option.text = product.name;
-      option.value = product.name;
-      this.getElement('#products').append(option);
-    } else {
-      console.log('It doesnt exist.');
-    }
+
+    if (!select) return;
+
+    const option = this.createElement('option', product.name);
+    option.text = product.name;
+    option.value = product.name;
+    this.getElement('#products').append(option);
   };
 
   resetForm = () => {

@@ -1,12 +1,23 @@
-@import 'grid';
-@import 'wizard';
-@import 'product';
-@import 'weather';
-@import 'container';
+@import "grid";
+@import "modal";
+@import "wizard";
+@import "product";
+@import "weather";
+@import "container";
 
 body {
   margin: 0;
   height: 100vh;
   overflow: none;
   font-family: Arial, Helvetica, sans-serif;
+
+  input {
+    padding: 0.3rem;
+    border-radius: 5px;
+    border: 1px solid #c4c4c4;
+
+    &:focus {
+      border-radius: 5px;
+    }
+  }
 }

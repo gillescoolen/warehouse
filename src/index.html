@@ -8,6 +8,28 @@
 </head>
 
 <body>
+  <div class="modal">
+    <div id="editor" class="editor">
+      <div class="header">
+        <span class="title">Editor</span>
+        <span id="productTitle" class="title product"></span>
+      </div>
+      <input id="editName" placeholder="Naam">
+      <input id="editDescription" placeholder="Beschrijving">
+      <input id="editBuyPrice" type="number" placeholder="Inkoopprijs zonder BTW">
+      <input id="editSellPrice" type="number" placeholder="Verkoopprijs zonder BTW">
+      <input id="editMinimumStored" type="number" placeholder="Minimumvoorraad">
+      <input id="editCurrentStored" type="number" placeholder="Huidige voorraad">
+      <div class="drawing">
+        <input id="editImage" type="file" accept="image/*" placeholder="Huidige voorraad">
+        <canvas id="editCanvas"></canvas>
+      </div>
+      <div class="buttons">
+        <button id="close">Sluiten</button>
+        <button id="save">Opslaan</button>
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div id="grid" class="grid">
 
@@ -52,14 +74,13 @@
       </div>
 
       <div class="buttons">
-        <button type="button" id="previous">Vorige</button>
-        <button type="button" id="next">Volgende</button>
+        <button id="previous">Vorige</button>
+        <button id="next">Volgende</button>
       </div>
     </div>
-  </div>
-  <div id="weather" class="weather">
+    <div id="weather" class="weather">
 
-  </div>
+    </div>
   </div>
 </body>
 

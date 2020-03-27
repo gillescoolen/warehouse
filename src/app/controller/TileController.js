@@ -14,6 +14,8 @@ export default class TileController {
 
     const product = JSON.parse(event.dataTransfer.getData('product'));
 
+    console.log(product);
+
     if (!product.name) return;
 
     this.#model.setOccupant(product.name);
