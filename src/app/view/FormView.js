@@ -9,8 +9,8 @@ export default class ProductView extends View {
   #currentStored;
 
   #tabs;
-  #shown;
-  #region;
+  #currentTab;
+  #regionSelect;
   #warning;
   #selectedRegion;
 
@@ -33,6 +33,9 @@ export default class ProductView extends View {
     this.show(0);
   }
 
+  /**
+   * Load our form elements.
+   */
   #loadFormElements = () => {
     this.#name = this.getElement('#name');
     this.#description = this.getElement('#description');
@@ -47,7 +50,7 @@ export default class ProductView extends View {
     this.#tabs = this.getMultipleElements('.tab');
     this.#warning = this.getElement('.warning');
 
-    this.#region = this.getElement('#region');
+    this.#regionSelect = this.getElement('#region');
 
     this.#frillsInputs = [
       this.createInput('input', 'weight', 'number', 'Gewicht')
@@ -71,48 +74,76 @@ export default class ProductView extends View {
     };
   };
 
+  /**
+   * Navigates to the next page.
+   * @param {Function} handler Callback to the controller to handle navigation.
+   */
   #next = handler => {
     this.#clearError();
 
-    const children = [...this.#shown.children];
+    // Spread the children nodelist to an array.
+    const children = [...this.#currentTab.children];
 
+    // Validate the inputs.
     const empty = children.find(
       c => c.localName === 'input' && c.value.trim().length === 0
     );
 
+    // Show error when an input is empty.
     if (empty)
       return this.#showError('Niet alle velden zijn correct ingevuld.');
 
+    // Fetch product data when they button is used to add.
     const product =
       this.#nextButton.innerText === 'Voeg toe' && this.#collectValues();
 
     handler(product, this.#selectedRegion);
   };
 
-  #previous = handler => {
-    handler();
-  };
+  /**
+   * Navigates to the previous tab.
+   * @param {Function} handler Callback to the controller to handle navigation.
+   */
+  #previous = handler => handler();
 
+  /**
+   * Shows an error.
+   * @param {string} message The error message.
+   */
   #showError = message => (this.#warning.innerText = message);
 
+  /**
+   * Clears the error.
+   */
   #clearError = () => (this.#warning.innerText = '');
 
+  /**
+   * Shows the regional properties for the selected region.
+   * @param {string} region The selected region.
+   */
   #showRegionalProperties = region => {
     this.#selectedRegion = region;
+
+    // Get the last tab.
     const tab = this.#tabs[this.#tabs.length - 1];
 
-    this.clear(tab);
+    // Clear the current tab.
+    [...tab.children].forEach(child => {
+      child.localName === 'input' && tab.removeChild(child);
+    });
 
+    // Enable the next button.
     this.#nextButton.removeAttribute('disabled');
 
+    // Load the regional inputs.
     const inputs = this.#regionalInputs[this.#selectedRegion];
-
-    inputs.forEach(input => {
-      tab.append(input);
-    });
+    inputs.forEach(input => tab.append(input));
   };
 
-  #regionalValues = () => {
+  /**
+   * Collects the values from our regional inputs.
+   */
+  #collectRegionalValues = () => {
     const values = {};
 
     this.#regionalInputs[this.#selectedRegion].forEach(
@@ -122,6 +153,9 @@ export default class ProductView extends View {
     return values;
   };
 
+  /**
+   * Collects the values from our form.
+   */
   #collectValues = () => {
     return {
       name: this.#name.value,
@@ -130,10 +164,13 @@ export default class ProductView extends View {
       sellPrice: this.#sellPrice.value,
       minimumStored: this.#minimumStored.value,
       currentStored: this.#currentStored.value,
-      customProperties: this.#regionalValues()
+      customProperties: this.#collectRegionalValues()
     };
   };
 
+  /**
+   * Clears all form values.
+   */
   #clearValues = () => {
     this.#name.value = '';
     this.#description.value = '';
@@ -143,10 +180,15 @@ export default class ProductView extends View {
     this.#currentStored.value = '';
   };
 
-  show = tab => {
+  /**
+   * Hides the old page and shows the new page.
+   * @param {number} page The current page.
+   */
+  show = page => {
     this.#tabs.forEach(tab => (tab.style.display = 'none'));
 
-    if (tab + 1 === this.#tabs.length) {
+    // Disable the next button on the last page.
+    if (page + 1 === this.#tabs.length) {
       this.#nextButton.innerHTML = 'Voeg toe';
       this.#nextButton.setAttribute('disabled', true);
     } else {
@@ -154,14 +196,20 @@ export default class ProductView extends View {
       this.#nextButton.removeAttribute('disabled');
     }
 
-    tab === 0
+    // Disable the previous button on the first page.
+    page === 0
       ? this.#previousButton.setAttribute('disabled', true)
       : this.#previousButton.removeAttribute('disabled');
 
-    this.#shown = this.#tabs[tab];
-    this.#shown.style.display = 'flex';
+    this.#currentTab = this.#tabs[page];
+    this.#currentTab.style.display = 'flex';
   };
 
+  /**
+   * Updates the product select dropdown with our new product.
+   * @param {Product} product The newly created product.
+   * @param {string} region The region the product is belongs to.
+   */
   updateProductSelect = (product, region) => {
     const select = this.getElement(`#products-${region}`);
 
@@ -173,10 +221,13 @@ export default class ProductView extends View {
     this.getElement('#products').append(option);
   };
 
+  /**
+   * Resets the form to the first page and clears all values.
+   */
   resetForm = () => {
     this.show(0);
     this.#selectedRegion = null;
-    this.#region.selected = 'default';
+    this.#regionSelect.selected = 'default';
     this.#clearValues();
   };
 
@@ -194,7 +245,7 @@ export default class ProductView extends View {
    * Binds a 'change' event listener to our region dropdown.
    */
   #bindRegionChange = () =>
-    this.#region.addEventListener('change', event =>
+    this.#regionSelect.addEventListener('change', event =>
       this.#showRegionalProperties(event.target.value)
     );
 }

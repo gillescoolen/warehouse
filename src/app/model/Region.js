@@ -31,6 +31,9 @@ export default class Region extends Model {
       : this.#generateProducts();
   }
 
+  /**
+   * Generate tiles fron nothing and saves them.
+   */
   #generateTiles = () => {
     for (let i = 0; i < 225; i++)
       this.#addTile(new Tile(`tile-${i}`, this.name, this.#isHazard(i)));
@@ -38,12 +41,18 @@ export default class Region extends Model {
     this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
+  /**
+   * Generate products from nothing and saves them.
+   */
   #loadTiles = tiles => {
     tiles.forEach(tile => {
       this.#addTile(new Tile(tile.name, this.name, tile.occupant));
     });
   };
 
+  /**
+   * Generate products from nothing and save them.
+   */
   #generateProducts = () => {
     this.#products = [
       new Product({
@@ -57,17 +66,33 @@ export default class Region extends Model {
     this.save(`${this.#name}-products`, this.#products);
   };
 
+  /**
+   * Turn data from localStorage into actual products and add them.
+   */
   #loadProducts = products => {
     this.#products = [];
     products.forEach(product => this.#addProduct(new Product({ ...product })));
   };
 
+  /**
+   * Add a tile to our tiles.
+   */
   #addTile = tile => this.tiles.push(tile);
+
+  /**
+   * Add a product to our products.
+   */
   #addProduct = product => this.products.push(product);
 
+  /**
+   * Calculate if the current tile should have a hazard.
+   */
   #isHazard = index =>
     index % this.#name.length === 0 ? { name: 'hazard' } : null;
 
+  /**
+   * Refreshes the products with products loaded from localStorage.
+   */
   refreshProducts = () => {
     const products = this.load(`${this.#name}-products`);
     this.#loadProducts(products);

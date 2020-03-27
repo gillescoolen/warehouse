@@ -9,6 +9,10 @@ export default class TileController {
     this.#view.onDrop(this.addOccupant);
   }
 
+  /**
+   * Adds an occupant to the tile.
+   * @param {Object} event The event from the drop listener.
+   */
   addOccupant = event => {
     if (this.#model.hasHazard()) return;
 
@@ -22,5 +26,8 @@ export default class TileController {
     this.#view.setOccupied();
   };
 
-  removeOccupant = () => (this.#model.occupant = null);
+  /**
+   * Removes the occupant.
+   */
+  removeOccupant = () => (this.#model.occupant = { name: '' });
 }

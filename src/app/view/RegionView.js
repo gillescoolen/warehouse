@@ -15,6 +15,10 @@ export default class RegionView extends View {
     this.#menu = this.getMultipleElements('#menu div');
   }
 
+  /**
+   * Renders the tile grid.
+   * @param {Tile[]} tiles The tile data.
+   */
   renderGrid = tiles => {
     this.clear(this.#grid);
 
@@ -25,6 +29,11 @@ export default class RegionView extends View {
     });
   };
 
+  /**
+   * Clear our product dropdown and current product and set the new products and product.
+   * @param {Product[]} products The new products.
+   * @param {string} name The region name.
+   */
   renderProducts = (products, name) => {
     this.clear(this.#products);
     this.clear(this.#product);
@@ -39,17 +48,28 @@ export default class RegionView extends View {
     });
   };
 
+  /**
+   * Clear the current product and render our selected product.
+   */
   renderProduct = product => {
     this.clear(this.#product);
     this.#product.innerText = product.name;
   };
 
+  /**
+   * Binds a 'click' event listener to our region menu items.
+   * @param {Function} handler The callback handler in our controller.
+   */
   bindRegionChange = handler => {
     this.#menu.forEach(child =>
       child.addEventListener('click', event => handler(child.id))
     );
   };
 
+  /**
+   * Binds a 'change' event listener to our product dropdown.
+   * @param {Function} handler The callback handler in our controller.
+   */
   bindProductChange = handler => {
     this.#products.addEventListener('change', event =>
       handler(event.target.value)
