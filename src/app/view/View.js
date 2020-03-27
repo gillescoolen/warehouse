@@ -7,60 +7,62 @@ export default class View {
    * @param {string} id The id we want to identify the element by.
    * @param {string[]} classNames The classnames we want the element to have.
    */
-  createElement(tag, id, classNames, placeholder) {
+  createElement = (tag, id, classNames) => {
     const element = document.createElement(tag);
 
     element.id = id;
 
-    // Add classnames to the element we create.
+    // If there are any classnames, add them to our element.
     if (classNames) {
       for (const className of classNames) {
         element.classList.add(className);
       }
     }
 
-    element.placeholder = placeholder && placeholder;
-
     return element;
-  }
+  };
+
+  /**
+   * Creates an input element.
+   * @param {string} tag The tag of the element we want to create.
+   * @param {string} id The id we want to identify the element by.
+   * @param {string} type The classnames we want the element to have.
+   * @param {string} placeholder The placeholder we want our input to have.
+   */
+  createInput = (tag, id, type, placeholder) => {
+    const input = this.createElement(tag, id);
+
+    input.type = type && type;
+    input.placeholder = placeholder && placeholder;
+
+    return input;
+  };
 
   /**
    * Retrieve an element from the DOM.
    * @param {string} selector The selector we define.
    */
-  getElement(selector) {
-    const element = document.querySelector(selector);
-
-    return element;
-  }
+  getElement = selector => document.querySelector(selector);
 
   /**
    * Retrieve multiple elements from the DOM.
    * @param {string} selector The selector we define.
    */
-  getMultipleElements(selector) {
-    const element = document.querySelectorAll(selector);
-
-    return element;
-  }
+  getMultipleElements = selector => document.querySelectorAll(selector);
 
   /**
    * Adds a class to the given element.
    * @param {Object} element The element we add te class to.
    * @param {string} className The class we want to add.
    */
-  addClass(element, className) {
-    element.classList.add(className);
-  }
+  addClass = (element, className) => element.classList.add(className);
 
   /**
    * Adds a class to the given element.
    * @param {Object} element The element we add te class to.
    * @param {string} className The class we want to add.
    */
-  removeClass(element, className) {
-    element.classList.remove(className);
-  }
+  removeClass = (element, className) => element.classList.remove(className);
 
   /**
    * Clears all children inside the given node.
