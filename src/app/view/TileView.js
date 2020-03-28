@@ -4,6 +4,7 @@ export default class TileView extends View {
   #tile;
 
   #modal;
+  #tileTitle;
   #regionTitle;
   #productTitle;
 
@@ -12,6 +13,7 @@ export default class TileView extends View {
     this.#modal = this.getElement(`.modal`);
     this.#tile = this.getElement(`#${name}`);
 
+    this.#tileTitle = this.getElement(`#tileTitle`);
     this.#regionTitle = this.getElement(`#regionTitle`);
     this.#productTitle = this.getElement(`#productTitle`);
 
@@ -45,10 +47,11 @@ export default class TileView extends View {
     });
   };
 
-  openTileEditor = (product, region) => {
+  openTileEditor = (product, region, tile) => {
     this.container.classList.add('blurred');
     this.#productTitle.innerText = product;
     this.#regionTitle.innerText = region;
+    this.#tileTitle.innerText = tile;
     this.#modal.style.display = 'flex';
   };
 

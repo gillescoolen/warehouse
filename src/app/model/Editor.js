@@ -10,9 +10,21 @@ export default class Editor extends Model {
     super();
   }
 
-  loadProduct = (productName, regionName) => {
-    const products = this.load(`${regionName}-products`);
+  loadProduct = (tileName, regionName) => {
+    const tiles = this.load(`${regionName}-tiles`);
 
-    return products.find(product => product.name === productName);
+    const tile = tiles.find(tile => tile.name === tileName);
+
+    return tile.occupant;
+  };
+
+  saveProduct = (product, region, tileName) => {
+    const tiles = this.load(`${region}-tiles`);
+
+    tiles.forEach(tile => {
+      if (tile.name === tileName) tile.occupant = product;
+    });
+
+    this.save(`${region}-tiles`, tiles);
   };
 }
