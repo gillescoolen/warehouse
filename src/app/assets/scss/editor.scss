@@ -10,12 +10,16 @@
   justify-content: center;
 
   .editor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     width: 40vw;
     height: 50vh;
     z-index: 2000;
     padding: 1rem;
     min-width: 600px;
-    min-height: 600px;
+    min-height: 650px;
     border-radius: 5px;
     transition: 0.2s all;
     background-color: white;

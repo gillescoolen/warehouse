@@ -51,6 +51,7 @@ export default class EditorView extends View {
 
     this.#image = this.getElement('#editImage');
     this.#canvas = this.getElement('#editCanvas');
+    this.#warning = this.getElement('#editWarning');
 
     this.#context = this.#canvas.getContext('2d');
 
@@ -90,6 +91,17 @@ export default class EditorView extends View {
     this.#clearCanvas();
   };
 
+  /**
+   * Shows an error.
+   * @param {string} message The error message.
+   */
+  #showError = message => (this.#warning.innerText = message);
+
+  /**
+   * Clears the error.
+   */
+  #clearError = () => (this.#warning.innerText = '');
+
   #clearInputs = () => {
     for (const key in this.#inputs) {
       this.#inputs[key].value = '';
@@ -104,11 +116,18 @@ export default class EditorView extends View {
     const files = event.target.files;
 
     if (files && files[0]) {
+      if (files[0].size > 300000) return this.#removeImage();
+
       var background = new Image();
       background.src = URL.createObjectURL(files[0]);
       background.onload = () =>
         this.#context.drawImage(background, 0, 0, 200, 200);
     }
+  };
+
+  #removeImage = () => {
+    this.#showError('Het bestand is te groot.');
+    this.#image.value = null;
   };
 
   #setupCanvas = () => {

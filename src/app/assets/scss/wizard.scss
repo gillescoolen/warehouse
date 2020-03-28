@@ -11,11 +11,6 @@
     font-weight: 700;
   }
 
-  .warning {
-    color: #dd2929;
-    font-weight: 700;
-  }
-
   .tab {
     display: none;
     padding: 1rem 3rem;
@@ -31,4 +26,9 @@
     padding: 0 3rem;
     justify-content: space-between;
   }
+}
+
+.warning {
+  color: #dd2929;
+  font-weight: 700;
 }
