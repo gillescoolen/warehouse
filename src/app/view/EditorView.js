@@ -80,7 +80,7 @@ export default class EditorView extends View {
 
   #bindImageUpload = () =>
     this.#image.addEventListener('change', event =>
-      this.#setImage(event.target.files)
+      this.#setImageFromFile(event.target.files)
     );
 
   #bindInputValidation = () => {
@@ -192,15 +192,19 @@ export default class EditorView extends View {
    * Sets the image as the canvas background.
    * @param {File[]} files The files selected with the file input field.
    */
-  #setImage = files => {
+  #setImageFromFile = files => {
     if (!files && !files[0]) return;
 
     if (files[0].size > 300000) return this.#removeImage();
 
     this.#clearError();
 
-    var background = new Image();
-    background.src = URL.createObjectURL(files[0]);
+    this.#setImage(URL.createObjectURL(files[0]));
+  };
+
+  #setImage = url => {
+    const background = new Image();
+    background.src = url;
     background.onload = () =>
       this.#context.drawImage(background, 0, 0, 200, 200);
   };
@@ -293,5 +297,7 @@ export default class EditorView extends View {
       input.value = product.customProperties[key];
       this.#custom.append(input);
     }
+
+    this.#setImage(product.image);
   };
 }
