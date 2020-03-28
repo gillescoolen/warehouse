@@ -16,7 +16,7 @@ export default class FormController {
    * @param {string} region The region the product belongs to.
    */
   #next = (product, region) => {
-    product && region && this.#create();
+    product && region && this.#create(product, region);
 
     this.#model.next();
     this.#view.show(this.#model.page);

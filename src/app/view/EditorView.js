@@ -189,19 +189,23 @@ export default class EditorView extends View {
   };
 
   /**
-   * Sets the image as the canvas background.
+   * Loads image the file input and sets it as the canvas image.
    * @param {File[]} files The files selected with the file input field.
    */
   #setImageFromFile = files => {
     if (!files && !files[0]) return;
 
-    if (files[0].size > 300000) return this.#removeImage();
+    // if (files[0].size > 300000) return this.#removeImage();
 
     this.#clearError();
 
     this.#setImage(URL.createObjectURL(files[0]));
   };
 
+  /**
+   * Sets the canvas image.
+   * @param {string} url The image url.
+   */
   #setImage = url => {
     const background = new Image();
     background.src = url;

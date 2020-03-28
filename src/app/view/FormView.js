@@ -216,7 +216,7 @@ export default class ProductView extends View {
     const option = this.createElement('option', product.name);
     option.text = product.name;
     option.value = product.name;
-    this.getElement('#products').append(option);
+    select.append(option);
   };
 
   /**
