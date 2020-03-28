@@ -18,10 +18,10 @@ export default class EditorView extends View {
   #image;
   #canvas;
   #context;
+  #addButton;
   #saveButton;
   #closeButton;
   #customProperty;
-  #addButton;
 
   #observer;
 
@@ -101,10 +101,6 @@ export default class EditorView extends View {
     this.#closeButton.addEventListener('click', event => this.#close());
 
   /**
-   * Validates user input.
-   */
-  #validateInput = event => {};
-  /**
    * Calls the controller to save the product.
    */
   #save = handler => {
@@ -154,6 +150,7 @@ export default class EditorView extends View {
 
   /**
    * Saves the values to the product.
+   * @param {Function} handler The callback handler.
    */
   #saveForm = handler => {
     const product = {};
@@ -164,9 +161,10 @@ export default class EditorView extends View {
       product[key] = this.#inputs[key].value;
     }
 
-    // Map the custom properties.
+    // Get the customProperties values.
     [...this.#custom.children].forEach(c => (customProperties[c.id] = c.value));
 
+    // Assign the customProperties to the product.
     product.customProperties = customProperties;
 
     // Save the canvas.
@@ -195,7 +193,7 @@ export default class EditorView extends View {
   #setImageFromFile = files => {
     if (!files && !files[0]) return;
 
-    // if (files[0].size > 300000) return this.#removeImage();
+    if (files[0].size > 300000) return this.#removeImage();
 
     this.#clearError();
 
