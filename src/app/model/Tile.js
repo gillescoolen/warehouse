@@ -21,6 +21,52 @@ export default class Tile extends Model {
     this.#occupant = occupant;
   }
 
+  /**
+   * Check if the tile has a product.
+   */
+  hasProduct = () => this.#occupant && this.#occupant.name !== 'hazard';
+
+  /**
+   * Check if the tile has a hazard.
+   */
+  hasHazard = () => this.#occupant && this.#occupant.name === 'hazard';
+
+  /**
+   * Get a fitting classname based on the occupant.
+   */
+  getClassName = () => {
+    if (this.hasHazard()) return 'hazard';
+
+    if (this.hasProduct()) return 'product';
+
+    return 'open';
+  };
+
+  /**
+   * Sets the occupant to the product that matches the given name.
+   * @param {string} name The product name.
+   */
+  setOccupant = name => {
+    const products = this.load(`${this.#region}-products`);
+
+    this.occupant = products.find(product => product.name === name);
+
+    this.#save();
+  };
+
+  /**
+   * Saves the tile to localstorage.
+   */
+  #save = () => {
+    const tiles = this.load(`${this.#region}-tiles`);
+
+    tiles.forEach(tile => {
+      if (tile.name === this.#name) tile.occupant = this.#occupant;
+    });
+
+    this.save(`${this.#region}-tiles`, tiles);
+  };
+
   get name() {
     return this.#name;
   }
@@ -37,37 +83,13 @@ export default class Tile extends Model {
     this.#occupant = occupant;
   }
 
-  hasHazard = () => this.#occupant && this.#occupant.name === 'hazard';
-  hasProduct = () =>
-    this.#occupant && this.#occupant.name && this.#occupant.name !== 'hazard';
-
-  getClassName() {
-    if (this.hasHazard()) return 'hazard';
-
-    if (this.hasProduct()) return 'product';
-
-    return 'open';
+  get region() {
+    return this.#region;
   }
 
-  setOccupant = name => {
-    const products = this.load(`${this.#region}-products`);
-
-    const product = products.find(product => product.name === name);
-
-    this.occupant = product;
-
-    this.#save();
-  };
-
-  #save = () => {
-    const tiles = this.load(`${this.#region}-tiles`);
-
-    tiles.forEach(tile => {
-      if (tile.name === this.#name) tile.occupant = this.#occupant;
-    });
-
-    this.save(`${this.#region}-tiles`, tiles);
-  };
+  set region(region) {
+    this.#region = region;
+  }
 
   toJSON() {
     return {

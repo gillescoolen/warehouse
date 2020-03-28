@@ -38,6 +38,7 @@ module.exports = {
   resolve: {
     extensions: ['.js']
   },
+  devtool: 'source-map',
   module: {
     rules: [
       // Use bable to transpile our js files with modern syntax to browser compatible syntax.

@@ -8,6 +8,42 @@
 </head>
 
 <body>
+  <div class="modal">
+    <div id="editor" class="editor">
+      <div class="header">
+        <span id="regionTitle" class="title"></span>
+        <span id="tileTitle" class="title"></span>
+        <span id="productTitle" class="title product"></span>
+      </div>
+      <span id="editWarning" class="warning"></span>
+      <div class="content">
+        <div id="default">
+          <input id="editName" placeholder="Naam">
+          <input id="editDescription" placeholder="Beschrijving">
+          <input min="0" max="999999999" id="editBuyPrice" type="number" placeholder="Inkoopprijs zonder BTW">
+          <input min="0" max="999999999" id="editSellPrice" type="number" placeholder="Verkoopprijs zonder BTW">
+          <input min="0" max="999999999" id="editMinimumStored" type="number" placeholder="Minimumvoorraad">
+          <input min="0" max="999999999" id="editCurrentStored" type="number" placeholder="Huidige voorraad">
+          <div class="drawing">
+            <input id="editImage" type="file" accept="image/*" placeholder="Huidige voorraad">
+            <canvas width="200" height="200" id="editCanvas"></canvas>
+          </div>
+        </div>
+
+        <div>
+          <div>
+            <input id="customProperty" placeholder="Producteigenchap">
+            <button id="addCustomProperty">Voeg toe</button>
+          </div>
+          <div id="custom"></div>
+        </div>
+      </div>
+      <div class="buttons">
+        <button id="close">Sluiten</button>
+        <button id="save">Opslaan</button>
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div id="grid" class="grid">
 
@@ -52,14 +88,13 @@
       </div>
 
       <div class="buttons">
-        <button type="button" id="previous">Vorige</button>
-        <button type="button" id="next">Volgende</button>
+        <button id="previous">Vorige</button>
+        <button id="next">Volgende</button>
       </div>
     </div>
-  </div>
-  <div id="weather" class="weather">
+    <div id="weather" class="weather">
 
-  </div>
+    </div>
   </div>
 </body>
 
