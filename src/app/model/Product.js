@@ -48,10 +48,6 @@ export default class Product {
     this.#buyPrice = buyPrice;
   }
 
-  get buyPriceWithTax() {
-    return this.#buyPrice * 1.21;
-  }
-
   get sellPrice() {
     return this.#name;
   }

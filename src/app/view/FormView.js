@@ -52,19 +52,17 @@ export default class ProductView extends View {
 
     this.#regionSelect = this.getElement('#region');
 
-    this.#frillsInputs = [
-      this.createInput('input', 'weight', 'number', 'Gewicht')
-    ];
+    this.#frillsInputs = [this.createInput('weight', 'number', 'Gewicht')];
 
     this.#clothesInputs = [
-      this.createInput('input', 'color', 'text', 'Kleur'),
-      this.createInput('input', 'size', 'text', 'Maat')
+      this.createInput('color', 'text', 'Kleur'),
+      this.createInput('size', 'text', 'Maat')
     ];
 
     this.#decorationInputs = [
-      this.createInput('input', 'size', 'number', 'Grootte in centimeters'),
-      this.createInput('input', 'color', 'text', 'Kleur'),
-      this.createInput('input', 'amount', 'number', 'Hoeveelheid per doos')
+      this.createInput('size', 'number', 'Grootte in centimeters'),
+      this.createInput('color', 'text', 'Kleur'),
+      this.createInput('amount', 'number', 'Hoeveelheid per doos')
     ];
 
     this.#regionalInputs = {

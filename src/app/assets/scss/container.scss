@@ -3,11 +3,13 @@
   height: 100%;
   display: grid;
   align-items: start;
+  transition: 0.2s all;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: "grid product" "grid wizard" "grid weather";
 }
 
 .blurred {
+  transition: 0.7s all;
   filter: blur(8px);
 }

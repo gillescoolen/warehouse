@@ -7,6 +7,7 @@ export default class TileController {
     this.#model = model;
 
     this.#view.onDrop(this.addOccupant);
+    this.#view.onClick(() => this.#editOccupant());
   }
 
   /**
@@ -18,8 +19,6 @@ export default class TileController {
 
     const product = JSON.parse(event.dataTransfer.getData('product'));
 
-    console.log(product);
-
     if (!product.name) return;
 
     this.#model.setOccupant(product.name);
@@ -30,4 +29,9 @@ export default class TileController {
    * Removes the occupant.
    */
   removeOccupant = () => (this.#model.occupant = { name: '' });
+
+  #editOccupant = () => {
+    if (!this.#model.hasProduct()) return;
+    this.#view.openTileEditor(this.#model.occupant.name, this.#model.region);
+  };
 }

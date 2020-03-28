@@ -36,17 +36,17 @@ export default class Region extends Model {
    */
   #generateTiles = () => {
     for (let i = 0; i < 225; i++)
-      this.#addTile(new Tile(`tile-${i}`, this.name, this.#isHazard(i)));
+      this.#addTile(new Tile(`tile-${i}`, this.#name, this.#isHazard(i)));
 
     this.save(`${this.#name}-tiles`, this.#tiles);
   };
 
   /**
-   * Generate products from nothing and saves them.
+   * Turn data from localStorage into actual tiles and add them.
    */
   #loadTiles = tiles => {
     tiles.forEach(tile => {
-      this.#addTile(new Tile(tile.name, this.name, tile.occupant));
+      this.#addTile(new Tile(tile.name, this.#name, tile.occupant));
     });
   };
 

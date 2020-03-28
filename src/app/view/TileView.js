@@ -2,28 +2,27 @@ import View from './View';
 
 export default class TileView extends View {
   #tile;
-  #tileSquare;
-  #modal;
-  #container;
 
-  constructor(tile) {
+  #modal;
+  #regionTitle;
+  #productTitle;
+
+  constructor(name) {
     super();
-    this.#tile = tile;
-    this.#tileSquare = this.getElement(`#${tile.name}`);
     this.#modal = this.getElement(`.modal`);
-    this.#container = this.getElement(`.container`);
+    this.#tile = this.getElement(`#${name}`);
+
+    this.#regionTitle = this.getElement(`#regionTitle`);
+    this.#productTitle = this.getElement(`#productTitle`);
 
     this.onDragOver();
-    this.onClick();
   }
 
   /**
    * Prevents the default dragover action on our tile.
    */
   onDragOver = () => {
-    this.#tileSquare.addEventListener('dragover', event =>
-      event.preventDefault()
-    );
+    this.#tile.addEventListener('dragover', event => event.preventDefault());
   };
 
   /**
@@ -31,7 +30,7 @@ export default class TileView extends View {
    * @param {Function} handler The function we run whenever drop occurs.
    */
   onDrop = handler => {
-    this.#tileSquare.addEventListener('drop', event => {
+    this.#tile.addEventListener('drop', event => {
       handler(event);
     });
   };
@@ -41,20 +40,25 @@ export default class TileView extends View {
    * @param {Function} handler The function we run whenever click occurs.
    */
   onClick = handler => {
-    this.#tileSquare.addEventListener('click', event => {
-      this.#container.classList.add('blurred');
-      this.#modal.style.display = 'flex';
-      handler(this.#tileSquare);
+    this.#tile.addEventListener('click', event => {
+      handler();
     });
+  };
+
+  openTileEditor = (product, region) => {
+    this.container.classList.add('blurred');
+    this.#productTitle.innerText = product;
+    this.#regionTitle.innerText = region;
+    this.#modal.style.display = 'flex';
   };
 
   /**
    * Turns our tile green.
    */
-  setOccupied = () => this.addClass(this.#tileSquare, 'product');
+  setOccupied = () => this.addClass(this.#tile, 'product');
 
   /**
    * Turns our tile green.
    */
-  removeOccupied = () => this.removeClass(this.#tileSquare, 'product');
+  removeOccupied = () => this.removeClass(this.#tile, 'product');
 }

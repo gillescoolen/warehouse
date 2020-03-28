@@ -11,18 +11,26 @@
   <div class="modal">
     <div id="editor" class="editor">
       <div class="header">
-        <span class="title">Editor</span>
+        <span id="regionTitle" class="title"></span>
         <span id="productTitle" class="title product"></span>
       </div>
-      <input id="editName" placeholder="Naam">
-      <input id="editDescription" placeholder="Beschrijving">
-      <input id="editBuyPrice" type="number" placeholder="Inkoopprijs zonder BTW">
-      <input id="editSellPrice" type="number" placeholder="Verkoopprijs zonder BTW">
-      <input id="editMinimumStored" type="number" placeholder="Minimumvoorraad">
-      <input id="editCurrentStored" type="number" placeholder="Huidige voorraad">
-      <div class="drawing">
-        <input id="editImage" type="file" accept="image/*" placeholder="Huidige voorraad">
-        <canvas id="editCanvas"></canvas>
+      <div class="content">
+        <div id="default">
+          <input id="editName" placeholder="Naam">
+          <input id="editDescription" placeholder="Beschrijving">
+          <input id="editBuyPrice" type="number" placeholder="Inkoopprijs zonder BTW">
+          <input id="editSellPrice" type="number" placeholder="Verkoopprijs zonder BTW">
+          <input id="editMinimumStored" type="number" placeholder="Minimumvoorraad">
+          <input id="editCurrentStored" type="number" placeholder="Huidige voorraad">
+          <div class="drawing">
+            <input id="editImage" type="file" accept="image/*" placeholder="Huidige voorraad">
+            <canvas width="200" height="200" id="editCanvas"></canvas>
+          </div>
+        </div>
+
+        <div id="custom">
+
+        </div>
       </div>
       <div class="buttons">
         <button id="close">Sluiten</button>

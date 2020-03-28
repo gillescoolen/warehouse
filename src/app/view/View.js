@@ -1,5 +1,9 @@
 export default class View {
-  constructor() {}
+  container;
+
+  constructor() {
+    this.container = this.getElement(`.container`);
+  }
 
   /**
    * Creates an element.
@@ -24,13 +28,12 @@ export default class View {
 
   /**
    * Creates an input element.
-   * @param {string} tag The tag of the element we want to create.
    * @param {string} id The id we want to identify the element by.
    * @param {string} type The classnames we want the element to have.
    * @param {string} placeholder The placeholder we want our input to have.
    */
-  createInput = (tag, id, type, placeholder) => {
-    const input = this.createElement(tag, id);
+  createInput = (id, type, placeholder) => {
+    const input = this.createElement('input', id);
 
     input.type = type && type;
     input.placeholder = placeholder && placeholder;

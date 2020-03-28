@@ -53,6 +53,6 @@ export default class RegionController {
    */
   #bindTiles = () =>
     this.#model.tiles.forEach(
-      tile => new TileController(tile, new TileView(tile))
+      tile => new TileController(tile, new TileView(tile.name))
     );
 }

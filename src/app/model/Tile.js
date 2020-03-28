@@ -24,7 +24,7 @@ export default class Tile extends Model {
   /**
    * Check if the tile has a product.
    */
-  #hasProduct = () => this.#occupant && this.#occupant.name !== 'hazard';
+  hasProduct = () => this.#occupant && this.#occupant.name !== 'hazard';
 
   /**
    * Check if the tile has a hazard.
@@ -37,7 +37,7 @@ export default class Tile extends Model {
   getClassName = () => {
     if (this.hasHazard()) return 'hazard';
 
-    if (this.#hasProduct()) return 'product';
+    if (this.hasProduct()) return 'product';
 
     return 'open';
   };
@@ -81,6 +81,14 @@ export default class Tile extends Model {
 
   set occupant(occupant) {
     this.#occupant = occupant;
+  }
+
+  get region() {
+    return this.#region;
+  }
+
+  set region(region) {
+    this.#region = region;
   }
 
   toJSON() {
