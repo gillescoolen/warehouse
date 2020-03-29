@@ -7,6 +7,7 @@ export default class EditorController {
     this.#model = model;
 
     this.#view.bindSave(this.#saveProduct);
+    this.#view.bindRemove(this.#removeProduct);
     this.#view.setupObserver(this.#loadProduct);
   }
 
@@ -32,5 +33,14 @@ export default class EditorController {
   #saveProduct = (product, region, tile) => {
     if (product && region && tile)
       this.#model.saveProduct(product, region, tile);
+  };
+
+  /**
+   * Calls the model to remove the product to localStorage.
+   * @param {string} region The region name.
+   * @param {string} tile The tile name.
+   */
+  #removeProduct = (region, tile) => {
+    if (region && tile) this.#model.removeProduct(region, tile);
   };
 }

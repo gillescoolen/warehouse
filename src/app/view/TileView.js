@@ -23,19 +23,15 @@ export default class TileView extends View {
   /**
    * Prevents the default dragover action on our tile.
    */
-  onDragOver = () => {
+  onDragOver = () =>
     this.#tile.addEventListener('dragover', event => event.preventDefault());
-  };
 
   /**
    * Binds our tile's drop event to the given handler.
    * @param {Function} handler The function we run whenever drop occurs.
    */
-  onDrop = handler => {
-    this.#tile.addEventListener('drop', event => {
-      handler(event);
-    });
-  };
+  onDrop = handler =>
+    this.#tile.addEventListener('drop', event => handler(event));
 
   /**
    * Binds our tile's click event to the given handler.
@@ -43,7 +39,7 @@ export default class TileView extends View {
    */
   onClick = handler => {
     this.#tile.addEventListener('click', event => {
-      handler();
+      [...this.#tile.classList].includes('product') && handler();
     });
   };
 
