@@ -53,7 +53,8 @@ export default class RegionView extends View {
    */
   renderProduct = product => {
     this.clear(this.#product);
-    this.#product.innerText = product.name;
+
+    this.#product.innerText = this.#products.value;
   };
 
   /**
@@ -62,7 +63,10 @@ export default class RegionView extends View {
    */
   bindRegionChange = handler => {
     this.#menu.forEach(child =>
-      child.addEventListener('click', event => handler(child.id))
+      child.addEventListener('click', event => {
+        this.sound.play();
+        handler(child.id);
+      })
     );
   };
 
@@ -71,8 +75,9 @@ export default class RegionView extends View {
    * @param {Function} handler The callback handler in our controller.
    */
   bindProductChange = handler => {
-    this.#products.addEventListener('change', event =>
-      handler(event.target.value)
-    );
+    this.#products.addEventListener('change', event => {
+      this.sound.play();
+      handler(event.target.value);
+    });
   };
 }

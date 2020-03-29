@@ -1,5 +1,8 @@
+import mp3 from '../assets/sounds/sound.mp3';
+
 export default class View {
   container;
+  sound = new Audio(mp3);
 
   constructor() {
     this.container = this.getElement(`.container`);

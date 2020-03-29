@@ -151,6 +151,7 @@ export default class EditorView extends View {
    * Adds a property to the product's customProperties
    */
   #addProperty = () => {
+    this.sound.play();
     const value = this.#customProperty.value;
     if (!value) return this.#showError('Voer een geldige naam in.');
 
