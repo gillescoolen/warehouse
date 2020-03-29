@@ -110,6 +110,7 @@ export default class EditorView extends View {
    */
   #save = handler => {
     this.#saveForm(handler);
+    this.#close();
   };
 
   /**
@@ -127,8 +128,6 @@ export default class EditorView extends View {
   };
 
   #remove = handler => {
-    console.log(this.#tileTitle);
-
     const square = this.getElement(`#${this.#tileTitle.innerText}`);
     this.removeClass(square, 'product');
     this.addClass(square, 'open');

@@ -14,6 +14,12 @@ module.exports = function(api) {
       {
         loose: true
       }
+    ],
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        loose: true
+      }
     ]
   ];
 

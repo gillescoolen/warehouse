@@ -1,11 +1,3 @@
-/**
- * A tile which can be occupied by a product or hazard.
- * @typedef {Object} Region
- * @property {string} name The grid (section) name.
- * @property {Tile[]} tiles Every tile inside of the section.
- * @property {Product[]} products The products belonging to our region.
- */
-
 import Model from './Model';
 import { Tile, Product } from '.';
 
