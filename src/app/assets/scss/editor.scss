@@ -52,6 +52,11 @@
         flex-direction: column;
       }
 
+      .custom {
+        height: 250px;
+        overflow-y: scroll;
+      }
+
       .drawing {
         margin: 0px;
 
