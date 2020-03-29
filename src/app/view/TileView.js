@@ -39,6 +39,7 @@ export default class TileView extends View {
    */
   onClick = handler => {
     this.#tile.addEventListener('click', event => {
+      this.sound.play();
       [...this.#tile.classList].includes('product') && handler();
     });
   };

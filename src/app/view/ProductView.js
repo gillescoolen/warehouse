@@ -8,14 +8,15 @@ export default class ProductView extends View {
 
     this.#product = this.getElement('#product');
 
-    this.bindOnDragStart();
+    this.#bindOnDragStart();
   }
 
   /**
    * Sets the product data whenever the user drags our product.
    */
-  bindOnDragStart = () => {
+  #bindOnDragStart = () => {
     this.#product.addEventListener('dragstart', event => {
+      this.sound.play();
       event.dataTransfer.setData(
         'product',
         JSON.stringify({ name: this.#product.innerText })
