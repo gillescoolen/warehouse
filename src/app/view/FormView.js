@@ -47,8 +47,8 @@ export default class ProductView extends View {
     this.#nextButton = this.getElement('#next');
     this.#previousButton = this.getElement('#previous');
 
+    this.#warning = this.getElement('#warning');
     this.#tabs = this.getMultipleElements('.tab');
-    this.#warning = this.getElement('.warning');
 
     this.#regionSelect = this.getElement('#region');
 

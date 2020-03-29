@@ -1,4 +1,5 @@
 import View from './View';
+import QRCode from 'qrcode';
 
 export default class EditorView extends View {
   #modal;
@@ -15,6 +16,7 @@ export default class EditorView extends View {
   #minimumStored;
   #currentStored;
 
+  #qr;
   #image;
   #canvas;
   #context;
@@ -59,6 +61,7 @@ export default class EditorView extends View {
 
     this.#customProperty = this.getElement('#customProperty');
 
+    this.#qr = this.getElement('#qrcode');
     this.#image = this.getElement('#editImage');
     this.#canvas = this.getElement('#editCanvas');
     this.#warning = this.getElement('#editWarning');
@@ -231,6 +234,12 @@ export default class EditorView extends View {
   };
 
   /**
+   * Generates a qrcode pased on the product name, tile and region.
+   * @param {string} data The stringified data.
+   */
+  #generateCode = data => QRCode.toCanvas(this.#qr, data);
+
+  /**
    * Allows the user to draw on the canvas.
    */
   #setupCanvas = () => {
@@ -317,5 +326,13 @@ export default class EditorView extends View {
     }
 
     this.#setImage(product.image);
+
+    this.#generateCode(
+      JSON.stringify({
+        product: product.name,
+        tile: this.#tileTitle.innerText,
+        region: this.#regionTitle.innerText
+      })
+    );
   };
 }
