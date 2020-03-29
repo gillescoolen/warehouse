@@ -30,6 +30,8 @@ export default class ProductView extends View {
 
     this.#bindRegionChange();
 
+    this.#bindFormValidation();
+
     this.show(0);
   }
 
@@ -70,6 +72,19 @@ export default class ProductView extends View {
       clothes: this.#clothesInputs,
       decoration: this.#decorationInputs
     };
+  };
+
+  #bindFormValidation = () => {
+    const inputs = this.getMultipleElements('#wizard');
+
+    [...inputs].forEach(input => {
+      input.addEventListener('paste', event => event.preventDefault());
+
+      input.addEventListener(
+        'keydown',
+        event => !/[a-zA-Z0-9 ]/g.test(event.key) && event.preventDefault()
+      );
+    });
   };
 
   /**
