@@ -27,13 +27,28 @@ export default class Editor extends Model {
    * Saves the product to localStorage.
    * @param {Product} product The edited product.
    * @param {string} region The region name.
-   * @param {string} tile The tile name.
+   * @param {string} tileName The tile name.
    */
   saveProduct = (product, region, tileName) => {
     const tiles = this.load(`${region}-tiles`);
 
     tiles.forEach(tile => {
       if (tile.name === tileName) tile.occupant = product;
+    });
+
+    this.save(`${region}-tiles`, tiles);
+  };
+
+  /**
+   * Removes the product from localStorage.
+   * @param {string} region The region name.
+   * @param {string} tileName The tile name.
+   */
+  removeProduct = (region, tileName) => {
+    const tiles = this.load(`${region}-tiles`);
+
+    tiles.forEach(tile => {
+      if (tile.name === tileName) tile.occupant = null;
     });
 
     this.save(`${region}-tiles`, tiles);

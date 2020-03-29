@@ -21,6 +21,7 @@ export default class EditorView extends View {
   #addButton;
   #saveButton;
   #closeButton;
+  #removeButton;
   #customProperty;
 
   #observer;
@@ -57,7 +58,6 @@ export default class EditorView extends View {
     this.#currentStored = this.getElement('#editCurrentStored');
 
     this.#customProperty = this.getElement('#customProperty');
-    this.#addButton = this.getElement('#addCustomProperty');
 
     this.#image = this.getElement('#editImage');
     this.#canvas = this.getElement('#editCanvas');
@@ -67,6 +67,8 @@ export default class EditorView extends View {
 
     this.#saveButton = this.getElement('#save');
     this.#closeButton = this.getElement('#close');
+    this.#removeButton = this.getElement('#remove');
+    this.#addButton = this.getElement('#addCustomProperty');
 
     this.#inputs = {
       name: this.#name,
@@ -105,7 +107,6 @@ export default class EditorView extends View {
    */
   #save = handler => {
     this.#saveForm(handler);
-    this.#close();
   };
 
   /**
@@ -120,6 +121,16 @@ export default class EditorView extends View {
 
     this.#clearInputs();
     this.#clearCanvas();
+  };
+
+  #remove = handler => {
+    console.log(this.#tileTitle);
+
+    const square = this.getElement(`#${this.#tileTitle.innerText}`);
+    this.removeClass(square, 'product');
+    this.addClass(square, 'open');
+    handler(this.#regionTitle.innerText, this.#tileTitle.innerText);
+    this.#close();
   };
 
   /**
@@ -280,6 +291,11 @@ export default class EditorView extends View {
 
   bindSave = handler =>
     this.#saveButton.addEventListener('click', event => this.#save(handler));
+
+  bindRemove = handler =>
+    this.#removeButton.addEventListener('click', event =>
+      this.#remove(handler)
+    );
 
   /**
    * Fills the product values in our form.
